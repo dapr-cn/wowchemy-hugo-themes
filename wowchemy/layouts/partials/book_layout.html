@@ -30,7 +30,7 @@
 
         <div class="docs-article-container">
           {{ if $show_breadcrumb }}
-            {{ partial "components/breadcrumb" $current_page }}
+          {{ partial "components/breadcrumb" $current_page }}
           {{ end }}
         </div>
 
@@ -42,19 +42,21 @@
           {{ $destination := .Params.cover.image }}
           {{ $is_remote := strings.HasPrefix $destination "http" }}
           {{- if not $is_remote -}}
-            {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
-            {{- if not $img -}}
-              {{- $img = resources.Get (path.Join "media" $destination) -}}
-            {{- end -}}
+          {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+          {{- if not $img -}}
+          {{- $img = resources.Get (path.Join "media" $destination) -}}
+          {{- end -}}
           {{- end -}}
           {{ if $img }}
-            {{ $img = $img.Fit "1800x310 webp" }}
-            <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner" alt="{{$alt}}">
+          {{ $img = $img.Fit "1800x310 webp" }}
+          <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner"
+            alt="{{$alt}}">
           {{ else }}
-            <img src="{{ .Params.cover.image }}" class="article-banner" alt="{{$alt}}">
+          <img src="{{ .Params.cover.image }}" class="article-banner" alt="{{$alt}}">
           {{ end }}
 
-          {{ with .Params.cover.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+          {{ with .Params.cover.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{
+          end }}
         </div>
         {{end}}
 
@@ -91,7 +93,6 @@
         </div>
 
         <div class="body-footer">
-          <p>{{ i18n "last_updated" }} {{ $.Lastmod | time.Format site.Params.locale.date_format }}</p>
 
           {{ partial "page_edit" . }}
 
